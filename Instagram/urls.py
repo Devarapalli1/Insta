@@ -28,6 +28,8 @@ urlpatterns = [
     path("profile/<str:user_name>", views.view_profile, name="profile"),
     path("post/", views.post),
     path("explore/", views.explore),
+    path("delete-post/<int:pk>/", views.delete_post, name="deletepost"),
+    path("viewpost/<int:pk>/", views.view_post, name="viewpost"),
 ]
 
 if settings.DEBUG:

@@ -11,15 +11,27 @@ section.all button {
 section.all div {
   font-size: large;
   margin-bottom: 30px;
+  margin-top: auto;
 }
 
-section .container {
+section.all .main-container {
   display: grid;
-  grid-template-columns: 100px 100px;
+  grid-template-columns: 1fr 1fr;
+}
+
+section.all .container {
+  display: grid;
+  /* grid-template-columns: 100px ; */
   column-gap: 40px;
   row-gap: 50px;
 }
 section .container .uname {
   text-align: center;
   margin-top: auto;
+}
+
+section.all .container .following,
+section.all .container .others {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
 }

@@ -2,16 +2,34 @@
 {% load staticfiles %}
 {% block content %}
 <section class="all">
-    {% for user in user_names %}
-    <div class="container">
-        <div class="uname">
-            {{user.user_name}}
+    <div class="main-container">
+        <div class="container">
+            {% for user in following %}
+            <div class="following">
+                <div class="uname">
+                    {{user.following}}
+                </div>
+                <div class="follow">
+                    <a href="{% url 'profile' user.following %}">
+                        <button type="button">un-follow</button></a>
+                </div>
+            </div>
+            {% endfor %}
         </div>
-        <div class="follow">
-            <a href="{% url 'profile' user.user_name %}">
-                <button type="button">follow</button></a>
+        <div class="container">
+            {% for user in others %}
+            <div class="others">
+                <div class="uname">
+                    {{user.user_name}}
+                </div>
+                <div class="follow">
+                    <a href="{% url 'profile' user.user_name %}">
+                        <button type="button">follow</button></a>
+                </div>
+            </div>
+            {% endfor %}
         </div>
+
     </div>
-    {% endfor %}
 </section>
 {% endblock %}

@@ -1,0 +1,18 @@
+section.home-post .container {
+  grid-template-columns: 1fr;
+}
+
+section.home-post .container {
+  width: 500px;
+  margin: auto;
+}
+
+section.home-post .item-container {
+  display: grid;
+  row-gap: 10px;
+}
+
+section.home-post img {
+  width: 100%;
+  height: auto;
+}

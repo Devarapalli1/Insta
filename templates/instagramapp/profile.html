@@ -41,7 +41,11 @@
     <div class="container">
         {% for posts in my_posts %}
         <div>
-            <img src="{{ posts.post.url }}" alt="img">
+            <a href="{% url 'viewpost' posts.pk %}">
+                <button>
+                    <img src="{{ posts.post.url }}" alt="img"><br>
+                </button>
+            </a>
         </div>
         {% endfor %}
     </div>

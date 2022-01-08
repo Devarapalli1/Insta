@@ -42,6 +42,10 @@ class Post(models.Model):
     def __str__(self):
         return self.user.user_name
 
+    def delete(self, *args, **kwargs):
+        self.post.delete()
+        super().delete(*args, **kwargs)  # Call the "real" delete() method.
+
 
 class Follow(models.Model):
     user = models.OneToOneField(Users, on_delete=models.CASCADE)

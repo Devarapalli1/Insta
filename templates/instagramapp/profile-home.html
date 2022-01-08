@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 {% extends "instagramapp/base.html" %}
 {% load staticfiles %}
-<html lang="en">
 
 <!-- <head>
     <meta charset="UTF-8">
@@ -12,11 +11,31 @@
     <title>Document</title>
 </head> -->
 
-<body>
 
-    {% block content %}
-    <h1>{{request.session.user}}</h1>
-    {% endblock %}
-</body>
-
-</html>
+{% block content %}
+<section class="home-post">
+    <div class="container">
+        {% for post in posts %}
+        <div class="item-container">
+            <div class="user-name">
+                {{post.user.user_name}}<br>
+                {{post.created}}
+            </div>
+            <div>
+                <img src="{{ post.post.url }}" alt="img"><br>
+                {% if post.location  %}
+                <div class="location">
+                    {{post.location}}
+                </div>
+                {% endif %}
+                {% if post.description %}
+                <div class="description">
+                    {{post.description}}
+                </div>
+                {% endif %}
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</section>
+{% endblock %}

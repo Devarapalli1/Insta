@@ -1,0 +1,33 @@
+section.view-post .container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  margin: 50px 10%;
+  column-gap: 0px;
+}
+
+section.view-post .container .img {
+  position: relative;
+}
+section.view-post .container img {
+  width: 100%;
+  height: auto;
+}
+
+section.view-post .container .comments {
+  background-color: white;
+  text-align: center;
+}
+
+section.view-post .delete {
+  text-align: left;
+  /* margin: auto 10%; */
+  position: absolute;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  top: 0px;
+}
+section.view-post .delete button {
+  background-color: red;
+  color: black;
+  padding: 0.5em 2em;
+}

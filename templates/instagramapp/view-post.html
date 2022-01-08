@@ -1,0 +1,26 @@
+{% extends "instagramapp/base.html" %}
+{% load staticfiles %}
+{% block content %}
+<section class="view-post">
+    <div class="container">
+        <div class="img">
+            <img src="{{ post.post.url }}" alt="img" /><br>
+            <div class="delete">
+                {% if request.session.user == post.user.user_name %}
+                <a href="{% url 'deletepost' post.pk %}">
+                    <button>DELETE</button>
+                </a>
+                {% endif %}
+            </div>
+        </div>
+
+        <div class="comments">
+            <p>Comments section</p>
+            <h1>{{post.post.location}}</h1>
+            <h1>{{post.post.description}}</h1>
+            <h1></h1>
+        </div>
+    </div>
+
+</section>
+{% endblock %}
