@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load staticfiles %}
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
+    <link rel="stylesheet" href="{% static 'css/base.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/profile-style.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/explore-friends-style.css' %}" />
+    <title>Document</title>
+</head>
+
+<body>
+    <header>
+
+        <div class="container">
+            <div class="insta-pic">
+                <img src="{% static 'images/instagram.png' %}" alt="instagram">
+            </div>
+            <div class="search-bar">
+                <input type="text" placeholder="Search">
+            </div>
+            <div class="nav-bar">
+                <nav>
+                    <div class="home">
+                        <button>
+                            <a href="/home">
+                                <i class="fa fa-home"></i>
+                            </a>
+                        </button>
+                    </div>
+                    <div class="create-post">
+                        <button>
+                            <a href="/post">
+                                <i class="fa fa-plus-square-o"></i>
+                            </a>
+                        </button>
+                    </div>
+                    <div>
+                        <button class="explore">
+                            <a href="/explore">
+                                <i class="fa fa-compass"></i>
+                            </a>
+                        </button>
+                    </div>
+                    <div class="explore">
+                        <button>
+                            <a href="/login">
+                                <i class="fa fa-sign-out"></i>
+                            </a>
+                        </button>
+                    </div>
+                    <div class="user-profile">
+                        <button>
+                            <a href="{% url 'profile' request.session.user %}">
+                                <i class="fa fa-user-circle"></i>
+                            </a>
+                        </button>
+                    </div>
+                </nav>
+            </div>
+    </header>
+    {% block content %}
+
+    {% endblock %}
+
+</body>
+
+</html>

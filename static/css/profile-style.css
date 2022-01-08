@@ -1,0 +1,70 @@
+section.main .container {
+  width: 600px;
+  display: grid;
+  grid-template-columns: 1fr 3fr;
+  grid-template-rows: auto;
+  margin: 50px auto;
+  column-gap: 100px;
+}
+
+section.main .follow-info {
+  display: grid;
+  grid-template-columns: 1fr 2fr 2fr;
+  font-size: large;
+}
+
+section.main .name {
+  font-size: large;
+}
+section.main .value {
+  font-weight: 700;
+}
+section.main .user-name h1 {
+  font-size: 28px;
+  font-weight: 300;
+}
+
+section.main .user-info {
+  display: grid;
+  grid-template-rows: auto auto auto;
+}
+
+section.main .image {
+  text-align: center;
+  margin-top: auto;
+}
+
+section.main .image img {
+  width: 100%;
+  height: 100%;
+}
+
+section.my-post .container {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  margin: 10% 10%;
+  column-gap: 30px;
+  row-gap: 30px;
+}
+section.my-post img {
+  width: 100%;
+  height: 100%;
+}
+
+@media screen and (max-width: 800px) {
+  section.main .container {
+    width: fit-content;
+    grid-template-columns: 30% 30%;
+  }
+  section.my-post .container {
+    grid-template-columns: 1fr 1fr;
+    margin: 10% 10%;
+  }
+}
+
+@media screen and (max-width: 400px) {
+  section.my-post .container {
+    grid-template-columns: 1fr;
+    margin: 10% 30px;
+  }
+}

@@ -1,0 +1,25 @@
+section {
+  margin-top: 50px;
+  margin-left: 50px;
+}
+section.all button {
+  background-color: cornflowerblue;
+  padding: 0.5em 2em;
+  margin-left: 10px;
+}
+
+section.all div {
+  font-size: large;
+  margin-bottom: 30px;
+}
+
+section .container {
+  display: grid;
+  grid-template-columns: 100px 100px;
+  column-gap: 40px;
+  row-gap: 50px;
+}
+section .container .uname {
+  text-align: center;
+  margin-top: auto;
+}

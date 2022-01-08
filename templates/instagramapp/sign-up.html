@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+{% load staticfiles %}
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="{% static 'css/sign-up-style.css' %}" />
+    <title>Sign-up Page</title>
+</head>
+
+<body>
+    <section>
+        <div class="container">
+            <div class="heading">
+                <h1>Instagram</h1>
+            </div>
+            <div class="form">
+                <div>
+                    <h3>Sign up to see photos and videos from your friends.</h3>
+                </div>
+                <form method="POST">
+                    {{form.as_p}}
+                    <input type="submit" value="Sign-up" />
+                    {% csrf_token %}
+                </form>
+            </div>
+            <div class="login">
+                Have an account ? <a href="/login">Log In</a>
+            </div>
+            <div class="download">
+                <div class="get">
+                    Get the app
+                </div>
+                <div class="app-links">
+                    <a
+                        href="https://itunes.apple.com/app/instagram/id389801252?pt=428156&ct=igweb.loginPage.badge&mt=8&vt=lo">
+                        <img src="{% static 'images/appstore.png' %}" alt="download in app store">
+                    </a>
+                    <a
+                        href="https://play.google.com/store/apps/details?id=com.instagram.android&r…0A1558-CB3D-4F00-88EB-371BA3E83B77%26utm_content%3Dlo%26utm_medium%3Dbadge">
+                        <img src="{% static 'images/playstore.png' %}" alt="download in play store">
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+</body>
+
+</html>

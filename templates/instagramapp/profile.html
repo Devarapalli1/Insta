@@ -1,0 +1,49 @@
+{% extends "instagramapp/base.html" %}
+{% load staticfiles %}
+{% block content %}
+<section class="main">
+    <div class="container">
+        <div class="image">
+            <button>
+                <img src="{% static 'images/profile-upload.jpg' %}">
+            </button>
+        </div>
+        <div class="user-info">
+            <div class="user-name">
+                <h1> {{ user_name }} </h1>
+            </div>
+            <div class="follow-info">
+                <div class="posts">
+                    <span class="value">{{ count_of_posts }}</span> posts
+                </div>
+                <div class="following">
+                    <span class="value">{{ following_count }}</span> following
+                </div>
+                <div class="followers">
+                    <span class="value">{{ followers_count }}</span> followers
+                </div>
+            </div>
+            <div class="name">
+                {{ user_name }}
+            </div>
+        </div>
+    </div>
+</section>
+<!-- <style>
+    section.my-post .container {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        margin: 10% 20%;
+        column-gap: 30px;
+    }
+</style> -->
+<section class="my-post">
+    <div class="container">
+        {% for posts in my_posts %}
+        <div>
+            <img src="{{ posts.post.url }}" alt="img">
+        </div>
+        {% endfor %}
+    </div>
+</section>
+{% endblock %}
