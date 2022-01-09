@@ -86,11 +86,11 @@ WSGI_APPLICATION = "Instagram.wsgi.application"
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql",
-        "NAME": env("NAME"),
-        "USER": env("USER_NAME"),
-        "PASSWORD": env("PASSWORD"),
-        "HOST": "localhost",
-        "PORT": "",
+        "NAME": env("Database"),
+        "USER": env("User"),
+        "PASSWORD": env("Password"),
+        "HOST": env("HOST"),
+        "PORT": env("Port"),
     }
 }
 
