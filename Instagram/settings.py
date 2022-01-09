@@ -11,6 +11,10 @@ https://docs.djangoproject.com/en/2.2/ref/settings/
 """
 
 import os
+import environ
+
+env = environ.Env()
+environ.Env.read_env()
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -20,7 +24,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/2.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = "pb2spnx1--o3ew3vty01t@$e^$(cmm@7z3nhp2a2x$84ic3(p+"
+SECRET_KEY = env("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -78,9 +82,9 @@ WSGI_APPLICATION = "Instagram.wsgi.application"
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql",
-        "NAME": "insta",
-        "USER": "vamsi",
-        "PASSWORD": "dnskvamsi",
+        "NAME": env("NAME"),
+        "USER": env("USER_NAME"),
+        "PASSWORD": env("PASSWORD"),
         "HOST": "localhost",
         "PORT": "",
     }

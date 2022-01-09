@@ -16,24 +16,9 @@ def UniqueEmail(value):
         raise ValidationError("User exists with this maid id")
 
 
-"""
-    username = forms.CharField(widget=forms.TextInput(), max_length=30, required=True,)
-	email = forms.CharField(widget=forms.EmailInput(), max_length=100, required=True,)
-	password = forms.CharField(widget=forms.PasswordInput())
-	confirm_password = forms.CharField(widget=forms.PasswordInput(), required=True, label="Confirm your password.")
-
-	class Meta:
-
-		model = User
-		fields = ('username', 'email', 'password')
-
-	def __init__(self, *args, **kwargs):
-		super(SignupForm, self).__init__(*args, **kwargs)
-		self.fields['username'].validators.append(ForbiddenUsers)
-		self.fields['username'].validators.append(InvalidUser)
-		self.fields['username'].validators.append(UniqueUser)
-		self.fields['email'].validators.append(UniqueEmail)
-"""
+def does_not_exist(value):
+    if not Users.objects.filter(user_name__iexact=value).exists():
+        raise ValidationError("User Doesnot exist please Sign-Up")
 
 
 class UserForm(forms.ModelForm):
@@ -73,6 +58,7 @@ class LoginForm(forms.Form):
     user_name = forms.CharField(
         label="",
         max_length=100,
+        validators=[does_not_exist],
         widget=forms.TextInput(attrs={"placeholder": "Enter User Name"}),
     )
     password = forms.CharField(

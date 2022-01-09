@@ -4,30 +4,36 @@
 <section class="all">
     <div class="main-container">
         <div class="container">
+
             {% for user in following %}
+            {% if user.following is not None %}
             <div class="following">
                 <div class="uname">
                     {{user.following}}
                 </div>
                 <div class="follow">
-                    <a href="{% url 'profile' user.following %}">
+                    <a href="{% url 'unfollow' user.following %}">
                         <button type="button">un-follow</button></a>
                 </div>
             </div>
+            {% endif %}
             {% endfor %}
+
         </div>
         <div class="container">
+            {% if others is not None %}
             {% for user in others %}
             <div class="others">
                 <div class="uname">
                     {{user.user_name}}
                 </div>
                 <div class="follow">
-                    <a href="{% url 'profile' user.user_name %}">
+                    <a href="{% url 'follow' user.user_name %}">
                         <button type="button">follow</button></a>
                 </div>
             </div>
             {% endfor %}
+            {% endif %}
         </div>
 
     </div>

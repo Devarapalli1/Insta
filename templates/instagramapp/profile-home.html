@@ -2,14 +2,6 @@
 {% extends "instagramapp/base.html" %}
 {% load staticfiles %}
 
-<!-- <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
-
-    <title>Document</title>
-</head> -->
 
 
 {% block content %}
@@ -18,11 +10,34 @@
         {% for post in posts %}
         <div class="item-container">
             <div class="user-name">
-                {{post.user.user_name}}<br>
-                {{post.created}}
+                <div class="profile-pic">
+                    <button>
+                        <a href="{% url 'profile' post.user.user_name %}">
+                            <i class="fa fa-user-circle"></i>
+                        </a>
+                    </button>
+                </div>
+                <div class="profile-info">
+                    {{post.user.user_name}}<br>
+                    {{post.created}}
+                </div>
+                <div class="unfollow">
+                    <a href="{% url 'unfollow' post.user.user_name %}">
+                        <button>
+                            unfollow
+                        </button>
+                    </a>
+                </div>
             </div>
             <div>
-                <img src="{{ post.post.url }}" alt="img"><br>
+                <div class="img">
+                    <a href="{% url 'viewpost' post.pk %}">
+                        <button>
+                            <img src="{{ post.post.url }}" alt="img" width="100%"><br>
+                        </button>
+                    </a>
+                </div>
+                <!-- <img src="{{ post.post.url }}" alt="img"><br> -->
                 {% if post.location  %}
                 <div class="location">
                     {{post.location}}

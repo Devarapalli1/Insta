@@ -15,7 +15,9 @@ def signup_page(request):
         if form.is_valid():
             form.save(commit=True)
             request.session["user"] = form.cleaned_data["user_name"]
-        return redirect("/home")
+            return redirect("/home")
+        else:
+            return render(request, "instagramapp/sign-up.html", {"form": form})
         # return render(request, "instagramapp/sign-up.html", {"form": form})
     return render(request, "instagramapp/sign-up.html", {"form": form})
 
@@ -38,6 +40,8 @@ def view_login(request):
                     return redirect("/home")
                 else:
                     err = "Password Mismatch"
+        else:
+            return render(request, "instagramapp/login.html", {"form": form})
 
     else:
         form = LoginForm()
@@ -101,27 +105,37 @@ def post(request):
         return redirect("/login")
 
 
-# def follow_user(request, user_name):
-#     other_user = Users.objects.get(name=user_name)
-#     session_user = request.session["user"]
-#     get_user = Users.objects.get(name=session_user)
-#     check_follower = Follow.objects.get(user=get_user.id)
-#     is_followed = False
-#     if other_user.name != session_user:
-#         if check_follower.another_user.filter(name=other_user).exists():
-#             add_usr = Follow.objects.get(user=get_user)
-#             add_usr.another_user.remove(other_user)
-#             is_followed = False
-#             return redirect(f"/profile/{session_user}")
-#         else:
-#             add_usr = Follow.objects.get(user=get_user)
-#             add_usr.another_user.add(other_user)
-#             is_followed = True
-#             return redirect(f"/profile/{session_user}")
+def follow_user(request, user_name):
+    if request.session.has_key("user"):
+        session_user = request.session["user"]
+        session_user_obj = Users.objects.get(user_name=session_user)
+        user_exists = Follow.objects.filter(user=session_user_obj).exists()
+        follow = Users.objects.get(user_name=user_name)
+        if user_exists:
+            to_follow = Follow.objects.get(user=session_user_obj)
+            to_follow.following.add(follow)
+            return redirect("/explore")
+        else:
+            Follow.objects.create(user=session_user_obj)
+            to_follow = Follow.objects.get(user=session_user_obj)
+            to_follow.following.add(follow)
+            return redirect("/explore")
+        pass
+    else:
+        return redirect("/login")
 
-#         return redirect(f"/profile/{session_user}")
-#     else:
-#         return redirect(f"/profile/{session_user}")
+
+def unfollow(request, user_name):
+    if request.session.has_key("user"):
+        session_user = request.session["user"]
+        session_user_obj = Users.objects.get(user_name=session_user)
+        unfollow_user = Users.objects.get(user_name=user_name)
+        session_user_following_info = Follow.objects.get(user=session_user_obj)
+        session_user_following_info.following.remove(unfollow_user)
+        # return redirect("/explore")
+        return redirect("/home")
+    else:
+        return render("/login")
 
 
 def explore(request):
@@ -129,9 +143,13 @@ def explore(request):
         current_user = request.session["user"]
         current_user_obj = Users.objects.get(user_name=current_user)
         following = Follow.objects.filter(user=current_user_obj).values("following")
-        others = Users.objects.exclude(user_name__in=following).exclude(
-            user_name=current_user
-        )
+        if following[0]["following"] is not None:
+            others = Users.objects.exclude(user_name__in=following).exclude(
+                user_name=current_user
+            )
+        else:
+            others = Users.objects.exclude(user_name=current_user)
+        print("others", others)
         user_names = Users.objects.exclude(user_name=current_user).values("user_name")
         return render(
             request,
@@ -154,3 +172,8 @@ def view_post(request, pk):
     session_user = request.session["user"]
     post = Post.objects.get(pk=pk)
     return render(request, "instagramapp/view-post.html", {"post": post})
+
+
+def delete_account(request, user_name):
+    Users.objects.filter(user_name=user_name).delete()
+    return redirect("/sign-up")

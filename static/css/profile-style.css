@@ -24,6 +24,15 @@ section.main .user-name h1 {
   font-weight: 300;
 }
 
+section.main .user-name .delete {
+  border: 0.5px;
+  background-color: rgb(230, 230, 230);
+  margin-left: 40px;
+  font-size: large;
+  padding: 0.3em 1em;
+  border-radius: 10px;
+}
+
 section.main .user-info {
   display: grid;
   grid-template-rows: auto auto auto;
@@ -46,6 +55,16 @@ section.my-post .container {
   column-gap: 30px;
   row-gap: 30px;
 }
+section.my-post .container button {
+  width: 100%;
+  height: 100%;
+}
+
+section.my-post .container .item {
+  width: 90%;
+  height: 250px;
+}
+
 section.my-post img {
   width: 100%;
   height: 100%;

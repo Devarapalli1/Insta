@@ -30,6 +30,9 @@ urlpatterns = [
     path("explore/", views.explore),
     path("delete-post/<int:pk>/", views.delete_post, name="deletepost"),
     path("viewpost/<int:pk>/", views.view_post, name="viewpost"),
+    path("follow/<str:user_name>/", views.follow_user, name="follow"),
+    path("unfollow/<str:user_name>/", views.unfollow, name="unfollow"),
+    path("delete/<str:user_name>/", views.delete_account, name="delete"),
 ]
 
 if settings.DEBUG:

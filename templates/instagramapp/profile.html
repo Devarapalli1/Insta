@@ -10,7 +10,17 @@
         </div>
         <div class="user-info">
             <div class="user-name">
-                <h1> {{ user_name }} </h1>
+                <h1> {{ user_name }}
+                    <span>
+                        {% if request.session.user == user_name %}
+                        <a href="{% url 'delete' user_name %}">
+                            <button class="delete">
+                                Delete Account
+                            </button>
+                        </a>
+                        {% endif %}
+                    </span>
+                </h1>
             </div>
             <div class="follow-info">
                 <div class="posts">
@@ -40,7 +50,7 @@
 <section class="my-post">
     <div class="container">
         {% for posts in my_posts %}
-        <div>
+        <div class="item">
             <a href="{% url 'viewpost' posts.pk %}">
                 <button>
                     <img src="{{ posts.post.url }}" alt="img"><br>
