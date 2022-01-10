@@ -33,6 +33,9 @@ urlpatterns = [
     path("follow/<str:user_name>/", views.follow_user, name="follow"),
     path("unfollow/<str:user_name>/", views.unfollow, name="unfollow"),
     path("delete/<str:user_name>/", views.delete_account, name="delete"),
+    path("like/<int:pk>/", views.like_post, name="like"),
+    path("following/<str:user_name>/", views.view_following, name="following"),
+    path("followers/<str:user_name>/", views.view_followers, name="followers"),
 ]
 
 if settings.DEBUG:

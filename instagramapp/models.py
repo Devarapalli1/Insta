@@ -35,6 +35,7 @@ class Post(models.Model):
     created = models.DateTimeField(auto_now_add=True)
     description = models.CharField(max_length=500, blank=True, null=True)
     location = models.CharField(max_length=100, blank=True, null=True)
+    likes = models.ManyToManyField(Users, related_name="post_like")
 
     class Meta:
         ordering = ["-created"]

@@ -34,3 +34,70 @@ section.all .container .others {
   display: grid;
   grid-template-columns: 1fr 1fr;
 }
+
+section.home-post .container {
+  grid-template-columns: 1fr;
+  display: grid;
+  row-gap: 30px;
+  width: 500px;
+  margin: auto;
+}
+
+/* section.home-post .container {
+} */
+
+section.home-post .item-container {
+  display: grid;
+  row-gap: 10px;
+}
+
+section.home-post img {
+  width: 100%;
+  height: auto;
+}
+
+section.home-post .user-name {
+  display: grid;
+  grid-template-columns: 40px auto auto;
+  column-gap: 10px;
+}
+section.home-post .user-name .profile-pic .fa {
+  font-size: 26px;
+}
+section.home-post .user-name .profile-pic {
+  margin: auto;
+}
+
+section.home-post .user-name a {
+  background-color: white;
+  text-decoration: none;
+  color: black;
+}
+section.home-post .user-name .profile-pic button {
+  border: 0px;
+}
+
+section.home-post .user-name .unfollow {
+  text-align: right;
+  margin-top: auto;
+}
+
+section.home-post .user-name .unfollow button {
+  background-color: aqua;
+  color: black;
+  border: 0px;
+  padding: 0.5em 1em;
+}
+
+section.home-post .img button {
+  width: 100%;
+  border: 0px;
+}
+section.home-post button[name="post_pk"] {
+  border: 0px;
+}
+
+section.home-post .likes-count {
+  font-weight: 600;
+  color: #262626;
+}

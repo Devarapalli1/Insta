@@ -56,3 +56,11 @@ section.home-post .img button {
   width: 100%;
   border: 0px;
 }
+section.home-post button[name="post_pk"] {
+  border: 0px;
+}
+
+section.home-post .likes-count {
+  font-weight: 600;
+  color: #262626;
+}

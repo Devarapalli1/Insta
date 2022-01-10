@@ -27,10 +27,12 @@
                     <span class="value">{{ count_of_posts }}</span> posts
                 </div>
                 <div class="following">
-                    <span class="value">{{ following_count }}</span> following
+                    <span class="value">{{ following_count }}</span>
+                    <a href="{% url 'following' user_name %}"><button>following</button></a>
                 </div>
                 <div class="followers">
-                    <span class="value">{{ followers_count }}</span> followers
+                    <span class="value">{{ followers_count }}</span> <a
+                        href="{% url 'followers' user_name %}"><button>followers</button></a>
                 </div>
             </div>
             <div class="name">
@@ -39,14 +41,7 @@
         </div>
     </div>
 </section>
-<!-- <style>
-    section.my-post .container {
-        display: grid;
-        grid-template-columns: 1fr 1fr 1fr;
-        margin: 10% 20%;
-        column-gap: 30px;
-    }
-</style> -->
+<hr>
 <section class="my-post">
     <div class="container">
         {% for posts in my_posts %}

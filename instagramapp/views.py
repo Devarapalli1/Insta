@@ -57,7 +57,18 @@ def view_home(request):
         )
         following = session_user_following.following.all()
         posts = Post.objects.filter(user__in=following).order_by("-created")
-        return render(request, "instagramapp/profile-home.html", {"posts": posts})
+        if request.method == "POST":
+            pk = request.POST.get("post_pk")
+            post_obj = Post.objects.get(pk=pk)
+            if session_user_object in post_obj.likes.all():
+                post_obj.likes.remove(session_user_object)
+            else:
+                post_obj.likes.add(session_user_object)
+        return render(
+            request,
+            "instagramapp/profile-home.html",
+            {"posts": posts, "session_user": session_user_object},
+        )
     else:
         return redirect("/login")
 
@@ -69,8 +80,10 @@ def view_profile(request, user_name):
         my_posts = Post.objects.filter(user=user_name)
         session_user_object = Users.objects.get(user_name=session_user_name)
         session_user_following = Follow.objects.get(user=session_user_object)
-        following_count = session_user_following.following.all().count()
-        followers_count = session_user_object.followers.all().count()
+        following_count = (
+            Follow.objects.get(user__user_name=user_name).following.all().count()
+        )
+        followers_count = Users.objects.get(user_name=user_name).followers.all().count()
         user_info = {
             "my_posts": my_posts,
             "user_name": user_name,
@@ -132,8 +145,8 @@ def unfollow(request, user_name):
         unfollow_user = Users.objects.get(user_name=user_name)
         session_user_following_info = Follow.objects.get(user=session_user_obj)
         session_user_following_info.following.remove(unfollow_user)
-        # return redirect("/explore")
-        return redirect("/home")
+        return redirect("/explore")
+        # return redirect("/home")
     else:
         return render("/login")
 
@@ -143,18 +156,37 @@ def explore(request):
         current_user = request.session["user"]
         current_user_obj = Users.objects.get(user_name=current_user)
         following = Follow.objects.filter(user=current_user_obj).values("following")
+        posts = Post.objects.exclude(user__user_name=current_user).order_by("-created")
         if following[0]["following"] is not None:
             others = Users.objects.exclude(user_name__in=following).exclude(
                 user_name=current_user
             )
         else:
             others = Users.objects.exclude(user_name=current_user)
-        print("others", others)
-        user_names = Users.objects.exclude(user_name=current_user).values("user_name")
+        following_user_objects = Follow.objects.get(
+            user__user_name=current_user
+        ).following.all()
+
+        ## if we get a like or un-like request
+
+        if request.method == "POST":
+            pk = request.POST.get("post_pk")
+            post_obj = Post.objects.get(pk=pk)
+            if current_user_obj in post_obj.likes.all():
+                post_obj.likes.remove(current_user_obj)
+            else:
+                post_obj.likes.add(current_user_obj)
+
         return render(
             request,
             "instagramapp/explore-friends.html",
-            context={"following": following, "others": others},
+            context={
+                "following": following,
+                "others": others,
+                "posts": posts,
+                "following_user_objects": following_user_objects,
+                "session_user": current_user_obj,
+            },
         )
     else:
         return redirect("/login")
@@ -170,10 +202,65 @@ def delete_post(request, pk):
 
 def view_post(request, pk):
     session_user = request.session["user"]
+    session_user_obj = Users.objects.get(user_name=session_user)
     post = Post.objects.get(pk=pk)
-    return render(request, "instagramapp/view-post.html", {"post": post})
+
+    ## For like -dislike function
+
+    if request.method == "POST":
+        pk = request.POST.get("post_pk")
+        post_obj = Post.objects.get(pk=pk)
+        if session_user_obj in post_obj.likes.all():
+            post_obj.likes.remove(session_user_obj)
+        else:
+            post_obj.likes.add(session_user_obj)
+    return render(
+        request,
+        "instagramapp/view-post.html",
+        {"post": post, "session_user": session_user_obj},
+    )
 
 
 def delete_account(request, user_name):
     Users.objects.filter(user_name=user_name).delete()
     return redirect("/sign-up")
+
+
+def like_post(request, pk):
+    user_name = request.session["user"]
+    pk = request.POST.get("post_pk")
+    post_obj = Post.objects.get(pk=pk)
+    session_user_obj = Users.objects.get(user_name=user_name)
+    if session_user_obj in post_obj.likes.all():
+        post_obj.likes.remove(session_user_obj)
+    else:
+        post_obj.likes.add(session_user_obj)
+    # likes_count = post_obj.likes.count()
+    # context = {"count": likes_count}
+    return redirect("/home")
+
+
+def view_followers(request, user_name):
+    user_obj = Users.objects.get(user_name=user_name)
+    followers = user_obj.followers.all()
+    following = Follow.objects.get(
+        user__user_name=request.session["user"]
+    ).following.all()
+    return render(
+        request,
+        "instagramapp/view-followers.html",
+        {"followers": followers, "following": following},
+    )
+
+
+def view_following(request, user_name):
+    following = Follow.objects.get(user__user_name=user_name).following.all()
+    session_user_following = Follow.objects.get(
+        user__user_name=request.session["user"]
+    ).following.all()
+    return render(
+        request,
+        "instagramapp/view-following.html",
+        {"following": following, "session_user_following": session_user_following},
+    )
+    pass

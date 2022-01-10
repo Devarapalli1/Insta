@@ -1,0 +1,29 @@
+{% extends "instagramapp/base.html" %}
+{% load staticfiles %}
+
+{% block content %}
+<section class="view-following">
+    <div class="main-container">
+        {% if not following.exists %}
+        <h1>You are not following</h1>
+        <h1>Click Explore to follow</h1>
+        {% endif %}
+        {% for follow in following %}
+        <div class="view-container">
+            <div class="uname">
+                {{ follow.user_name }}
+            </div>
+            <div class="follow">
+                {% if follow in session_user_following %}
+                <a href="{% url 'unfollow' follow.user_name %}">
+                    <button type="button">un-follow</button></a>
+                {% else %}
+                <a href="{% url 'follow' follow.user_name %}">
+                    <button type="button">follow</button></a>
+                {% endif %}
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</section>
+{% endblock %}

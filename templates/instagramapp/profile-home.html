@@ -38,8 +38,24 @@
                     </a>
                 </div>
                 <!-- <img src="{{ post.post.url }}" alt="img"><br> -->
+                <!-- action="{% url 'like' post.pk %}" -->
+                <div class="like">
+                    <form method="POST">
+                        {% csrf_token %}
+                        <button type=" submit" name="post_pk" value="{{ post.pk }}">
+                            {% if session_user  not in post.likes.all %}
+                            <i class='fa fa-heart-o' style='font-size:24px'></i>
+                            {% else %}
+                            <i class="fa fa-heart" style="font-size: 24px;"></i>
+                            {% endif %}
+                        </button>
+                    </form>
+                </div>
+                <div class="likes-count">
+                    {{ post.likes.count }} likes
+                </div>
                 {% if post.location  %}
-                <div class="location">
+                <div class=" location">
                     {{post.location}}
                 </div>
                 {% endif %}

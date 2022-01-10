@@ -1,0 +1,21 @@
+section.view-following .main-container {
+  display: grid;
+  width: 400px;
+  margin: auto;
+  row-gap: 30px;
+}
+
+section.view-following .main-container .view-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  margin: auto;
+  column-gap: 30px;
+  font-size: larger;
+}
+section.view-following .main-container .view-container button {
+  background-color: aqua;
+  color: #262626;
+  border: 0px;
+  padding: 0.5em 1em;
+  border-radius: 5px;
+}

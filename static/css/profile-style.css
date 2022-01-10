@@ -9,7 +9,19 @@ section.main .container {
 
 section.main .follow-info {
   display: grid;
-  grid-template-columns: 1fr 2fr 2fr;
+  grid-template-columns: 1.5fr 2fr 2fr;
+  font-size: large;
+}
+
+section.main .following button {
+  border: 0px;
+  background-color: rgb(230, 230, 230);
+  font-size: large;
+}
+
+section.main .followers button {
+  border: 0px;
+  background-color: rgb(230, 230, 230);
   font-size: large;
 }
 
@@ -52,16 +64,17 @@ section.my-post .container {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
   margin: 10% 10%;
-  column-gap: 30px;
+  column-gap: 20px;
   row-gap: 30px;
 }
 section.my-post .container button {
   width: 100%;
   height: 100%;
+  border: 0px;
 }
 
 section.my-post .container .item {
-  width: 90%;
+  width: 100%;
   height: 250px;
 }
 
