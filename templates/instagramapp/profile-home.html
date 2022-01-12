@@ -2,10 +2,10 @@
 {% extends "instagramapp/base.html" %}
 {% load staticfiles %}
 
-
-
 {% block content %}
+
 <section class="home-post">
+    {% if posts.count != 0 %}
     <div class="container">
         {% for post in posts %}
         <div class="item-container">
@@ -19,14 +19,18 @@
                 </div>
                 <div class="profile-info">
                     {{post.user.user_name}}<br>
+                    {{post.user.name}}<br>
                     {{post.created}}
                 </div>
                 <div class="unfollow">
-                    <a href="{% url 'unfollow' post.user.user_name %}">
-                        <button>
-                            unfollow
-                        </button>
-                    </a>
+                    <form action="{% url 'unfollow' post.user.user_name %}" method="POST">
+                        {% csrf_token %}
+                        <a>
+                            <button type="submit" name="next" value="{{request.path}}">
+                                unfollow
+                            </button>
+                        </a>
+                    </form>
                 </div>
             </div>
             <div>
@@ -37,19 +41,32 @@
                         </button>
                     </a>
                 </div>
-                <!-- <img src="{{ post.post.url }}" alt="img"><br> -->
-                <!-- action="{% url 'like' post.pk %}" -->
-                <div class="like">
-                    <form method="POST">
-                        {% csrf_token %}
-                        <button type=" submit" name="post_pk" value="{{ post.pk }}">
-                            {% if session_user  not in post.likes.all %}
-                            <i class='fa fa-heart-o' style='font-size:24px'></i>
-                            {% else %}
-                            <i class="fa fa-heart" style="font-size: 24px;"></i>
-                            {% endif %}
+                <div class="like-comment-share">
+                    <div class="like">
+                        <form method="POST">
+                            {% csrf_token %}
+                            <button type=" submit" name="post_pk" value="{{ post.pk }}">
+                                {% if session_user  not in post.likes.all %}
+                                <i class='fa fa-heart-o' style='font-size:24px'></i>
+                                {% else %}
+                                <i class="fa fa-heart" style="font-size: 24px;"></i>
+                                {% endif %}
+                            </button>
+                        </form>
+                    </div>
+                    <div class="comment">
+                        <button>
+                            <i class='fa fa-comment-o' style='font-size:24px'></i>
                         </button>
-                    </form>
+                        </form>
+                    </div>
+                    <div class="share">
+                        <button>
+                            <i class='fa fa-share' style='font-size:24px'></i>
+                        </button>
+                        </form>
+                    </div>
+
                 </div>
                 <div class="likes-count">
                     {{ post.likes.count }} likes
@@ -68,5 +85,43 @@
         </div>
         {% endfor %}
     </div>
+    {% else %}
+    <div class="suggestions-head">
+        <h4>Suggestions for you</h4>
+    </div>
+    <div class="suggestions-container">
+        <div class="suggestions">
+            {% for user in users %}
+            <div class="user">
+                <div class="profile-pic">
+                    <button>
+                        <a href="{% url 'profile' user.user_name %}">
+                            <i class="fa fa-user-circle"></i>
+                        </a>
+                    </button>
+                </div>
+                <div class="user-name-info">
+                    <div class="user-name">
+                        {{ user.user_name }}
+                    </div>
+                    <div class="full-name">
+                        {{user.name}}
+                    </div>
+                </div>
+                <div class="follow">
+                    {% if user in following %}
+                    <a href="{% url 'unfollow' user.user_name %}">
+                        <button type="submit">unfollow</button>
+                    </a>
+                    {% else %}
+                    <a href="{% url 'follow' user.user_name %}">
+                        <button type="button">follow</button></a>
+                    {% endif %}
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    {% endif %}
 </section>
 {% endblock %}

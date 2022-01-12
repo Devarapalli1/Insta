@@ -1,3 +1,6 @@
+section.view-followers {
+  margin: 50px 10%;
+}
 section.view-followers .main-container {
   display: grid;
   width: 400px;
@@ -7,15 +10,22 @@ section.view-followers .main-container {
 
 section.view-followers .main-container .view-container {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 200px 150px;
   margin: auto;
   column-gap: 30px;
   font-size: larger;
+  text-align: center;
 }
 section.view-followers .main-container .view-container button {
-  background-color: aqua;
-  color: #262626;
-  border: 0px;
   padding: 0.5em 1em;
+  background-color: rgb(59, 127, 237);
   border-radius: 5px;
+  border: 0px;
+  font-size: 16px;
+  cursor: pointer;
+  color: white;
+  box-sizing: border-box;
+}
+section.view-container .main-container .uname {
+  align-content: center;
 }

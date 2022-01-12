@@ -12,8 +12,14 @@
                     {{user.following}}
                 </div>
                 <div class="follow">
-                    <a href="{% url 'unfollow' user.following %}">
-                        <button type="button">un-follow</button></a>
+                    <form action="{% url 'unfollow' user.following %}" method="POST">
+                        {% csrf_token %}
+                        <a>
+                            <button type="submit" name="next" value="{{request.path}}">
+                                unfollow
+                            </button>
+                        </a>
+                    </form>
                 </div>
             </div>
             {% endif %}
@@ -28,8 +34,14 @@
                     {{user.user_name}}
                 </div>
                 <div class="follow">
-                    <a href="{% url 'follow' user.user_name %}">
-                        <button type="button">follow</button></a>
+                    <form action="{% url 'follow' user.user_name %}" method="POST">
+                        {% csrf_token %}
+                        <a>
+                            <button type="submit" name="next" value="{{request.path}}">
+                                follow
+                            </button>
+                        </a>
+                    </form>
                 </div>
             </div>
             {% endfor %}
@@ -38,7 +50,7 @@
     </div>
 </section>
 
-
+<!-- 
 <section class="home-post">
     <div class="container">
         {% for post in posts %}
@@ -58,17 +70,23 @@
 
                 <div class="unfollow">
                     {% if post.user not in following_user_objects %}
-                    <a href="{% url 'follow' post.user.user_name %}">
-                        <button>
-                            follow
-                        </button>
-                    </a>
+                    <form action="{% url 'follow' post.user.user_name %}" method="POST">
+                        {% csrf_token %}
+                        <a>
+                            <button type="submit" name="next" value="{{request.path}}">
+                                follow
+                            </button>
+                        </a>
+                    </form>
                     {% else %}
-                    <a href="{% url 'unfollow' post.user.user_name %}">
-                        <button>
-                            unfollow
-                        </button>
-                    </a>
+                    <form action="{% url 'unfollow' post.user.user_name %}" method="POST">
+                        {% csrf_token %}
+                        <a>
+                            <button type="submit" name="next" value="{{request.path}}">
+                                unfollow
+                            </button>
+                        </a>
+                    </form>
                     {% endif %}
                 </div>
             </div>
@@ -80,8 +98,7 @@
                         </button>
                     </a>
                 </div>
-                <!-- <img src="{{ post.post.url }}" alt="img"><br> -->
-                <!-- action="{% url 'like' post.pk %}" -->
+
                 <div class="like">
                     <form method="POST">
                         {% csrf_token %}
@@ -108,6 +125,20 @@
                 </div>
                 {% endif %}
             </div>
+        </div>
+        {% endfor %}
+    </div>
+</section> -->
+
+<section class="test">
+    <div class="main-container">
+        {% for post in posts %}
+        <div class="item">
+            <a href="{% url 'viewpost' post.pk %}">
+                <button>
+                    <img src="{{ post.post.url }}" alt="img">
+                </button>
+            </a>
         </div>
         {% endfor %}
     </div>

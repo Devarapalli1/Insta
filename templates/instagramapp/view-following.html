@@ -5,8 +5,9 @@
 <section class="view-following">
     <div class="main-container">
         {% if not following.exists %}
-        <h1>You are not following</h1>
-        <h1>Click Explore to follow</h1>
+        <h1>You are not following<br>
+            <br>
+            Click <a href="/explore">Explore</a> to follow</h1>
         {% endif %}
         {% for follow in following %}
         <div class="view-container">
@@ -14,12 +15,28 @@
                 {{ follow.user_name }}
             </div>
             <div class="follow">
-                {% if follow in session_user_following %}
-                <a href="{% url 'unfollow' follow.user_name %}">
-                    <button type="button">un-follow</button></a>
+                {% if follow.user_name == request.session.user %}
+                <button id="restrict">This is you</button>
                 {% else %}
-                <a href="{% url 'follow' follow.user_name %}">
-                    <button type="button">follow</button></a>
+                {% if follow in session_user_following %}
+                <form action="{% url 'unfollow' follow.user_name %}" method="POST">
+                    {% csrf_token %}
+                    <a>
+                        <button type="submit" name="next" value="{{request.path}}">
+                            unfollow
+                        </button>
+                    </a>
+                </form>
+                {% else %}
+                <form action="{% url 'follow' follow.user_name %}" method="POST">
+                    {% csrf_token %}
+                    <a>
+                        <button type="submit" name="next" value="{{request.path}}">
+                            follow
+                        </button>
+                    </a>
+                </form>
+                {% endif %}
                 {% endif %}
             </div>
         </div>

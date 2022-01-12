@@ -4,6 +4,7 @@ from . import forms
 from .forms import LoginForm, PostForm
 from instagramapp.models import Users, Post, Follow
 from django.core.files.storage import FileSystemStorage
+from django.http import HttpResponseRedirect
 
 # Create your views here.
 def signup_page(request):
@@ -57,6 +58,7 @@ def view_home(request):
         )
         following = session_user_following.following.all()
         posts = Post.objects.filter(user__in=following).order_by("-created")
+        users = Users.objects.exclude(user_name=session_user_name)
         if request.method == "POST":
             pk = request.POST.get("post_pk")
             post_obj = Post.objects.get(pk=pk)
@@ -67,7 +69,12 @@ def view_home(request):
         return render(
             request,
             "instagramapp/profile-home.html",
-            {"posts": posts, "session_user": session_user_object},
+            {
+                "posts": posts,
+                "session_user": session_user_object,
+                "users": users,
+                "following": following,
+            },
         )
     else:
         return redirect("/login")
@@ -83,6 +90,7 @@ def view_profile(request, user_name):
         following_count = (
             Follow.objects.get(user__user_name=user_name).following.all().count()
         )
+        name = Users.objects.get(user_name=user_name).name
         followers_count = Users.objects.get(user_name=user_name).followers.all().count()
         user_info = {
             "my_posts": my_posts,
@@ -90,6 +98,7 @@ def view_profile(request, user_name):
             "count_of_posts": len(my_posts),
             "following_count": following_count,
             "followers_count": followers_count,
+            "name": name,
         }
         return render(request, "instagramapp/profile.html", context=user_info)
     else:
@@ -127,13 +136,14 @@ def follow_user(request, user_name):
         if user_exists:
             to_follow = Follow.objects.get(user=session_user_obj)
             to_follow.following.add(follow)
-            return redirect("/explore")
         else:
             Follow.objects.create(user=session_user_obj)
             to_follow = Follow.objects.get(user=session_user_obj)
             to_follow.following.add(follow)
-            return redirect("/explore")
-        pass
+        if request.method == "POST":
+            next = request.POST.get("next", "/")
+            return HttpResponseRedirect(next)
+        return redirect("/home")
     else:
         return redirect("/login")
 
@@ -145,8 +155,10 @@ def unfollow(request, user_name):
         unfollow_user = Users.objects.get(user_name=user_name)
         session_user_following_info = Follow.objects.get(user=session_user_obj)
         session_user_following_info.following.remove(unfollow_user)
-        return redirect("/explore")
-        # return redirect("/home")
+        if request.method == "POST":
+            next = request.POST.get("next", "/")
+            return HttpResponseRedirect(next)
+        return redirect("/home")
     else:
         return render("/login")
 
@@ -204,7 +216,9 @@ def view_post(request, pk):
     session_user = request.session["user"]
     session_user_obj = Users.objects.get(user_name=session_user)
     post = Post.objects.get(pk=pk)
-
+    related_post_user_obj = post.user
+    related_posts = Post.objects.filter(user=related_post_user_obj).exclude(pk=post.pk)
+    following = Follow.objects.get(user__user_name=session_user).following.all()
     ## For like -dislike function
 
     if request.method == "POST":
@@ -217,7 +231,12 @@ def view_post(request, pk):
     return render(
         request,
         "instagramapp/view-post.html",
-        {"post": post, "session_user": session_user_obj},
+        {
+            "post": post,
+            "session_user": session_user_obj,
+            "related_posts": related_posts,
+            "following": following,
+        },
     )
 
 
@@ -255,6 +274,7 @@ def view_followers(request, user_name):
 
 def view_following(request, user_name):
     following = Follow.objects.get(user__user_name=user_name).following.all()
+    print(following)
     session_user_following = Follow.objects.get(
         user__user_name=request.session["user"]
     ).following.all()
@@ -263,4 +283,3 @@ def view_following(request, user_name):
         "instagramapp/view-following.html",
         {"following": following, "session_user_following": session_user_following},
     )
-    pass

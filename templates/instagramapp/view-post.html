@@ -13,28 +13,105 @@
                 {% endif %}
             </div>
             <!-- action="{% url 'like' post.pk %}" -->
-            <div class="like">
-                <form method="POST">
-                    {% csrf_token %}
-                    <button type=" submit" name="post_pk" value="{{ post.pk }}">
-                        {% if session_user  not in post.likes.all %}
-                        <i class='fa fa-heart-o' style='font-size:24px'></i>
-                        {% else %}
-                        <i class="fa fa-heart" style="font-size: 24px;"></i>
-                        {% endif %}
-                    </button>
-                </form>
-            </div>
-            <div class="likes-count">
-                {{ post.likes.count }} likes
-            </div>
         </div>
         <div class="comments">
-            <p>Comments section</p>
-            <h1>{{post.post.location}}</h1>
+            <!-- <p>Comments section</p> -->
+            <!-- <h1>{{post.post.location}}</h1>
             <h1>{{post.post.description}}</h1>
-            <h1></h1>
+            <h1></h1> -->
+            <div class="uinfo">
+                <div class="profile-pic">
+                    <button>
+                        <a href="{% url 'profile' post.user.user_name %}">
+                            <i class="fa fa-user-circle"></i>
+                        </a>
+                    </button>
+                </div>
+                <div class="user-name-info">
+                    <div class="user-name">
+                        {{ post.user.user_name }}
+                    </div>
+                    <div class="full-name">
+                        {{post.user.name}}
+                    </div>
+                </div>
+                <div class="follow">
+                    {% if request.session.user != post.user.user_name %}
+                    {% if post.user in following %}
+                    <form action="{% url 'unfollow' post.user.user_name %}" method="POST">
+                        {% csrf_token %}
+                        <a>
+                            <button type="submit" name="next" value="{{request.path}}">
+                                unfollow
+                            </button>
+                        </a>
+                    </form>
+                    {% else %}
+                    <form action="{% url 'follow' post.user.user_name %}" method="POST">
+                        {% csrf_token %}
+                        <a>
+                            <button type="submit" name="next" value="{{request.path}}">
+                                follow
+                            </button>
+                        </a>
+                    </form>
+                    {% endif %}
+                    {% endif %}
+                </div>
+            </div>
+
+            <div class="like-p">
+                <div class="like-comment-share">
+                    <div class="like">
+                        <form method="POST">
+                            {% csrf_token %}
+                            <button type=" submit" name="post_pk" value="{{ post.pk }}">
+                                {% if session_user  not in post.likes.all %}
+                                <i class='fa fa-heart-o' style='font-size:20px'></i>
+                                {% else %}
+                                <i class="fa fa-heart" style="font-size: 20px;"></i>
+                                {% endif %}
+                            </button>
+                        </form>
+                    </div>
+                    <div class="comment">
+                        <button>
+                            <i class='fa fa-comment-o' style='font: size 24px;'></i>
+                        </button>
+                        </form>
+                    </div>
+                    <div class="share">
+                        <button>
+                            <i class='fa fa-share' style='font-size:20px;'></i>
+                        </button>
+                        </form>
+                    </div>
+                </div>
+                <div class="likes-count">
+                    {{ post.likes.count }} likes
+                </div>
+            </div>
+
         </div>
     </div>
+</section>
+
+<section class="related-posts">
+    <hr>
+    <div class="content">
+        <p>Related User Posts</p>
+    </div>
+    <div class="related-container">
+        {% for post in related_posts %}
+        <div class="img">
+            <a href="{% url 'viewpost' post.pk %}">
+                <button>
+                    <img src="{{ post.post.url }}" alt="img"><br>
+                </button>
+            </a>
+        </div>
+        {% endfor %}
+    </div>
+
 </section>
 {% endblock %}

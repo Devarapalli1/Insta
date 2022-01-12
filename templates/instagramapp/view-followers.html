@@ -15,12 +15,28 @@
                 {{ follower.user.user_name }}
             </div>
             <div class="follow">
-                {% if follower.user in following %}
-                <a href="{% url 'unfollow' follower.user.user_name %}">
-                    <button type="button">un-follow</button></a>
+                {% if follower.user.user_name == request.session.user %}
+                <button id="restrict">Hey you are following </button>
                 {% else %}
-                <a href="{% url 'follow' follower.user.user_name %}">
-                    <button type="button">follow</button></a>
+                {% if follower.user in following %}
+                <form action="{% url 'unfollow' follower.user.user_name %}" method="POST">
+                    {% csrf_token %}
+                    <a>
+                        <button type="submit" name="next" value="{{request.path}}">
+                            unfollow
+                        </button>
+                    </a>
+                </form>
+                {% else %}
+                <form action="{% url 'follow' follower.user.user_name %}" method="POST">
+                    {% csrf_token %}
+                    <a>
+                        <button type="submit" name="next" value="{{request.path}}">
+                            follow
+                        </button>
+                    </a>
+                </form>
+                {% endif %}
                 {% endif %}
             </div>
         </div>
