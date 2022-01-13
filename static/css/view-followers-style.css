@@ -10,7 +10,8 @@ section.view-followers .main-container {
 
 section.view-followers .main-container .view-container {
   display: grid;
-  grid-template-columns: 200px 150px;
+  grid-template-columns: auto 2fr auto;
+  width: 300px;
   margin: auto;
   column-gap: 30px;
   font-size: larger;
@@ -19,7 +20,7 @@ section.view-followers .main-container .view-container {
   padding: 10px;
   background-color: white;
 }
-section.view-followers .main-container .view-container button {
+section.view-followers .main-container .view-container .follow button {
   padding: 0.3em 1em;
   background-color: rgb(59, 127, 237);
   border-radius: 5px;
@@ -29,6 +30,27 @@ section.view-followers .main-container .view-container button {
   color: white;
   box-sizing: border-box;
 }
-section.view-container .main-container .uname {
+section.view-followers .main-container .view-container .follow {
+  margin: auto;
+}
+section.view-followers .view-container .uname {
   align-content: center;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+  font-size: 18px;
+  margin: auto;
+}
+
+section.view-followers .main-container .view-container .profile-pic img {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+}
+
+section.view-followers .main-container .view-container .profile-pic button {
+  width: 100%;
+  height: 100%;
+  border: 0px;
+  border-radius: 50%;
+  background-color: inherit;
 }

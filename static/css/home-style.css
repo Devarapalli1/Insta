@@ -17,10 +17,16 @@ section.home-post .item-container {
   row-gap: 10px;
 }
 
-section.home-post img {
+section.home-post .img img {
   width: 100%;
   height: 500px;
   border-radius: 20px;
+}
+
+section.home-post .user-name .profile-pic img {
+  height: 34px;
+  width: 34px;
+  border-radius: 50%;
 }
 
 section.home-post .user-name {
@@ -101,7 +107,11 @@ section.home-post .suggestions .user {
 section.home-post .suggestions .user .profile-pic .fa {
   font-size: 30px;
 }
-
+section.home-post .suggestions .user .profile-pic img {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+}
 section.home-post .suggestions .user .profile-pic a {
   color: black;
 }

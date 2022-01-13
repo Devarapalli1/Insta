@@ -46,8 +46,10 @@ section.search .container .uinfo .profile-pic button {
   width: 100%;
 }
 
-section.search i.fa.fa-user-circle {
-  font-size: 30px;
+section.search .container .uinfo .profile-pic img {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
 }
 
 section.search a {

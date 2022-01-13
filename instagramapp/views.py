@@ -21,6 +21,9 @@ def signup_page(request):
         if form.is_valid():
             form.save(commit=True)
             request.session["user"] = form.cleaned_data["user_name"]
+            request.session["obj"] = Users.objects.get(
+                user_name=request.session["user"]
+            ).profile_pic.url
             return redirect("/home")
         else:
             return render(request, "instagramapp/sign-up.html", {"form": form})
@@ -43,6 +46,10 @@ def view_login(request):
                 # print(user)
                 if user.password == password:
                     request.session["user"] = user.user_name
+                    request.session["obj"] = Users.objects.get(
+                        user_name=request.session["user"]
+                    ).profile_pic.url
+                    print(request.session["obj"])
                     return redirect("/home")
                 else:
                     err = "Password Mismatch"
@@ -64,6 +71,7 @@ def view_home(request):
         following = session_user_following.following.all()
         posts = Post.objects.filter(user__in=following).order_by("-created")
         users = Users.objects.exclude(user_name=session_user_name)
+        print(request.session["obj"])
         if request.method == "POST":
             pk = request.POST.get("post_pk")
             post_obj = Post.objects.get(pk=pk)
@@ -360,7 +368,7 @@ def update_profile(request):
         name = request.POST.get("name")
         email = request.POST.get("email")
         # print(email)
-        if name.strip != "":
+        if name.strip() != "":
             session_user_obj.name = name
         if email.strip() != "":
             if Users.objects.filter(email=email):
@@ -378,6 +386,7 @@ def update_profile(request):
             )
         else:
             session_user_obj.save()
+            request.session["obj"] = session_user_obj.profile_pic.url
             return redirect(f"/profile/{session_user_obj.user_name}")
 
     return render(

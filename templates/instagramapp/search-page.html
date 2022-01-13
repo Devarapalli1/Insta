@@ -9,7 +9,8 @@
             <div class="profile-pic">
                 <button>
                     <a href="{% url 'profile' user.user_name %}">
-                        <i class="fa fa-user-circle"></i>
+                        <img src="{{ user.profile_pic.url }}">
+                        <!-- <i class="fa fa-user-circle"></i> -->
                     </a>
                 </button>
             </div>

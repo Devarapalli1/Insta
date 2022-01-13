@@ -11,6 +11,14 @@
         {% endif %}
         {% for follower in followers %}
         <div class="view-container">
+            <div class="profile-pic">
+                <button>
+                    <a href="{% url 'profile' follower.user.user_name %}">
+                        <img src="{{ follower.user.profile_pic.url }}">
+                        <!-- <i class="fa fa-user-circle"></i> -->
+                    </a>
+                </button>
+            </div>
             <div class="uname">
                 {{ follower.user.user_name }}
             </div>

@@ -9,7 +9,7 @@ section.view-post .container {
 section.view-post .container .img {
   position: relative;
 }
-section.view-post .container img {
+section.view-post .container .img img {
   width: 100%;
   height: 100%;
   border-radius: 20px;
@@ -74,8 +74,13 @@ section.view-post .comments .uinfo {
   box-sizing: border-box;
 }
 
-section.view-post .comments .profile-pic .fa {
+/* section.view-post .comments .profile-pic .fa {
   font-size: 26px;
+} */
+section.view-post .comments .profile-pic img {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
 }
 
 section.view-post .comments .profile-pic button {
@@ -90,6 +95,7 @@ section.view-post .comments .profile-pic a {
 section.view-post .comments .profile-pic {
   margin: auto;
 }
+
 section.view-post .comments .uinfo .user-name-info {
   display: grid;
   grid-template-rows: 1fr 1fr;
@@ -152,6 +158,11 @@ section.view-post .comments-section .uinfo {
 section.view-post .comments-section .user-name {
   font-weight: 600;
   font-size: 14px;
+}
+section.view-post .comments-section .uinfo .profile-pic img {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
 }
 
 section.view-post .comments-section .comment-description {
@@ -270,8 +281,9 @@ section.related-posts .content {
 
 ::-webkit-scrollbar {
   display: none;
+  /* width: 20px; */
 }
 
 * {
-  scrollbar-width: none;
+  scrollbar-width: 2px;
 }

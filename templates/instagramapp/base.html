@@ -16,12 +16,10 @@
     <link rel="stylesheet" href="{% static 'css/view-followers-style.css' %}" />
     <link rel="stylesheet" href="{% static 'css/search-page-style.css' %}" />
     <link rel="stylesheet" href="{% static 'css/update-profile-style.css' %}" />
+    <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script> -->
     <script src="{% static 'js/share.js' %}"></script>
-    <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-    <script src="https://unpkg.com/masonry-layout@4/dist/masonry.pkgd.min.js"></script>
-    <script src="https://unpkg.com/imagesloaded@4/imagesloaded.pkgd.min.js"></script>
-    <script src="{% static 'js/explore.js' %}"></script> -->
     <title>Document</title>
 </head>
 
@@ -73,7 +71,9 @@
                     <div class="user-profile">
                         <button>
                             <a href="{% url 'profile' request.session.user %}">
-                                <i class="fa fa-user-circle"></i>
+                                <!-- <h1>{{ request.session.obj }}</h1> -->
+                                <img class="img-circle" src="{{ request.session.obj }}">
+                                <!-- <i class=" fa fa-user-circle"></i> -->
                             </a>
                         </button>
                     </div>

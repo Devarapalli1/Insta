@@ -19,7 +19,8 @@
                 <div class="profile-pic">
                     <button>
                         <a href="{% url 'profile' post.user.user_name %}">
-                            <i class="fa fa-user-circle"></i>
+                            <img src="{{ post.user.profile_pic.url }}">
+                            <!-- <i class="fa fa-user-circle"></i> -->
                         </a>
                     </button>
                 </div>
@@ -60,8 +61,9 @@
                 <div class="uinfo">
                     <div class="profile-pic">
                         <button>
-                            <a href="{% url 'profile' post.user.user_name %}">
-                                <i class="fa fa-user-circle"></i>
+                            <a href="{% url 'profile' comment.user.user_name %}">
+                                <img src="{{ comment.user.profile_pic.url }}">
+                                <!-- <i class="fa fa-user-circle"></i> -->
                             </a>
                         </button>
                     </div>
