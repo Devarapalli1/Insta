@@ -5,7 +5,7 @@ section.view-followers .main-container {
   display: grid;
   width: 400px;
   margin: auto;
-  row-gap: 50px;
+  row-gap: 30px;
 }
 
 section.view-followers .main-container .view-container {
@@ -15,9 +15,12 @@ section.view-followers .main-container .view-container {
   column-gap: 30px;
   font-size: larger;
   text-align: center;
+  border-radius: 1em;
+  padding: 10px;
+  background-color: white;
 }
 section.view-followers .main-container .view-container button {
-  padding: 0.5em 1em;
+  padding: 0.3em 1em;
   background-color: rgb(59, 127, 237);
   border-radius: 5px;
   border: 0px;

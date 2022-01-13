@@ -46,7 +46,7 @@
                         <form method="POST">
                             {% csrf_token %}
                             <button type=" submit" name="post_pk" value="{{ post.pk }}">
-                                {% if session_user  not in post.likes.all %}
+                                {% if session_user not in post.likes.all %}
                                 <i class='fa fa-heart-o' style='font-size:24px'></i>
                                 {% else %}
                                 <i class="fa fa-heart" style="font-size: 24px;"></i>
@@ -55,16 +55,20 @@
                         </form>
                     </div>
                     <div class="comment">
-                        <button>
-                            <i class='fa fa-comment-o' style='font-size:24px'></i>
-                        </button>
-                        </form>
+                        <a href="{% url 'viewpost' post.pk %}">
+                            <button>
+                                <i class='fa fa-comment-o' style='font-size:24px'></i>
+                            </button>
+                        </a>
                     </div>
-                    <div class="share">
+                    <div class="share" onclick="displayMessage(event,this)">
                         <button>
                             <i class='fa fa-share' style='font-size:24px'></i>
                         </button>
-                        </form>
+                        <div class="share-message">
+                            Copied to clipboard
+                        </div>
+                        <input class="copy-url" type="hidden" value="{% url 'viewpost' post.pk %}" name="url">
                     </div>
 
                 </div>

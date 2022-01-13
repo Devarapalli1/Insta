@@ -2,9 +2,14 @@ from django.shortcuts import redirect, render
 from django.http import HttpResponse
 from . import forms
 from .forms import LoginForm, PostForm
-from instagramapp.models import Users, Post, Follow
+from instagramapp.models import Comments, Users, Post, Follow, Comments
 from django.core.files.storage import FileSystemStorage
 from django.http import HttpResponseRedirect
+from datetime import datetime
+from django.db.models import Q, Sum
+
+global search_for_user
+search_for_user = ""
 
 # Create your views here.
 def signup_page(request):
@@ -81,17 +86,21 @@ def view_home(request):
 
 
 def view_profile(request, user_name):
+    today_date = datetime.now()
     if request.session.has_key("user"):
         session_user_name = request.session["user"]
         # user = Users.objects.get(user_name=session_user_name)
         my_posts = Post.objects.filter(user=user_name)
         session_user_object = Users.objects.get(user_name=session_user_name)
         session_user_following = Follow.objects.get(user=session_user_object)
+        session_user_following_members = session_user_following.following.all()
         following_count = (
             Follow.objects.get(user__user_name=user_name).following.all().count()
         )
         name = Users.objects.get(user_name=user_name).name
         followers_count = Users.objects.get(user_name=user_name).followers.all().count()
+        if request.method == "POST":
+            pass
         user_info = {
             "my_posts": my_posts,
             "user_name": user_name,
@@ -99,6 +108,8 @@ def view_profile(request, user_name):
             "following_count": following_count,
             "followers_count": followers_count,
             "name": name,
+            "session_user_following": session_user_following_members,
+            "user_obj": Users.objects.get(user_name=user_name),
         }
         return render(request, "instagramapp/profile.html", context=user_info)
     else:
@@ -213,6 +224,7 @@ def delete_post(request, pk):
 
 
 def view_post(request, pk):
+    today_date = datetime.now()
     session_user = request.session["user"]
     session_user_obj = Users.objects.get(user_name=session_user)
     post = Post.objects.get(pk=pk)
@@ -220,6 +232,7 @@ def view_post(request, pk):
     related_posts = Post.objects.filter(user=related_post_user_obj).exclude(pk=post.pk)
     following = Follow.objects.get(user__user_name=session_user).following.all()
     ## For like -dislike function
+    comments = Comments.objects.filter(post__pk=pk)
 
     if request.method == "POST":
         pk = request.POST.get("post_pk")
@@ -236,6 +249,8 @@ def view_post(request, pk):
             "session_user": session_user_obj,
             "related_posts": related_posts,
             "following": following,
+            "today_date": today_date,
+            "comments": comments,
         },
     )
 
@@ -282,4 +297,91 @@ def view_following(request, user_name):
         request,
         "instagramapp/view-following.html",
         {"following": following, "session_user_following": session_user_following},
+    )
+
+
+def search_user(request):
+    global search_for_user
+    session_user = request.session["user"]
+    if request.method == "POST":
+        search_for_user = request.POST.get("search")
+        search_for_user = search_for_user.strip()
+        if search_for_user != "":
+            search_results = Users.objects.filter(
+                Q(user_name__contains=search_for_user)
+                | Q(name__contains=search_for_user)
+            ).exclude(user_name=session_user)
+            session_user_following = Follow.objects.get(
+                user__user_name=session_user
+            ).following.all()
+            context = {
+                "session_user_following": session_user_following,
+                "search_results": search_results,
+                "search_for_user": search_for_user,
+            }
+            return render(request, "instagramapp/search-page.html", context)
+        else:
+            return redirect("/home")
+    else:
+        if search_for_user != "":
+            search_results = Users.objects.filter(
+                Q(user_name__contains=search_for_user)
+                | Q(name__contains=search_for_user)
+            ).exclude(user_name=session_user)
+            session_user_following = Follow.objects.get(
+                user__user_name=session_user
+            ).following.all()
+            context = {
+                "session_user_following": session_user_following,
+                "search_results": search_results,
+                "search_for_user": search_for_user,
+            }
+        return render(request, "instagramapp/search-page.html", context)
+    return redirect("/search")
+
+
+def add_comment(request, pk):
+    session_user = request.session["user"]
+    session_user_obj = Users.objects.get(user_name=session_user)
+    post = Post.objects.get(pk=pk)
+    if request.method == "POST":
+        comment = request.POST.get("comment")
+        Comments.objects.create(post=post, user=session_user_obj, comment=comment)
+        return redirect("/viewpost/" + str(pk))
+    return redirect("/viewpost/" + str(pk))
+
+
+def update_profile(request):
+    session_user_obj = Users.objects.get(user_name=request.session["user"])
+    err = ""
+    if request.method == "POST":
+        image = request.FILES.get("profile_pic", None)
+        # user_name = request.POST.get("user-name")
+        name = request.POST.get("name")
+        email = request.POST.get("email")
+        # print(email)
+        if name.strip != "":
+            session_user_obj.name = name
+        if email.strip() != "":
+            if Users.objects.filter(email=email):
+                err = "Email already taken"
+            else:
+                session_user_obj.email = email
+        if image:
+            session_user_obj.profile_pic = image
+        if err:
+            # print("error", err)
+            return render(
+                request,
+                "instagramapp/update-profile.html",
+                {"user": session_user_obj, "err": err},
+            )
+        else:
+            session_user_obj.save()
+            return redirect(f"/profile/{session_user_obj.user_name}")
+
+    return render(
+        request,
+        "instagramapp/update-profile.html",
+        {"user": session_user_obj, "err": err},
     )

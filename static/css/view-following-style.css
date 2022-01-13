@@ -15,9 +15,12 @@ section.view-following .main-container .view-container {
   column-gap: 30px;
   font-size: larger;
   text-align: center;
+  background-color: white;
+  border-radius: 1em;
+  padding: 10px;
 }
 section.view-following .main-container .view-container button {
-  padding: 0.5em 1em;
+  padding: 0.2em 1em;
   background-color: rgb(59, 127, 237);
   border-radius: 5px;
   border: 0px;

@@ -15,10 +15,6 @@
             <!-- action="{% url 'like' post.pk %}" -->
         </div>
         <div class="comments">
-            <!-- <p>Comments section</p> -->
-            <!-- <h1>{{post.post.location}}</h1>
-            <h1>{{post.post.description}}</h1>
-            <h1></h1> -->
             <div class="uinfo">
                 <div class="profile-pic">
                     <button>
@@ -59,7 +55,25 @@
                     {% endif %}
                 </div>
             </div>
-
+            <div class="comments-section">
+                {% for comment in comments %}
+                <div class="uinfo">
+                    <div class="profile-pic">
+                        <button>
+                            <a href="{% url 'profile' post.user.user_name %}">
+                                <i class="fa fa-user-circle"></i>
+                            </a>
+                        </button>
+                    </div>
+                    <div class="user-name">
+                        {{ comment.user.user_name }}
+                    </div>
+                    <div class="comment-description">
+                        {{ comment.comment }}
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
             <div class="like-p">
                 <div class="like-comment-share">
                     <div class="like">
@@ -80,15 +94,25 @@
                         </button>
                         </form>
                     </div>
-                    <div class="share">
+                    <div class="share" onclick="displayMessage(event,this)">
                         <button>
-                            <i class='fa fa-share' style='font-size:20px;'></i>
+                            <i class='fa fa-share' style='font-size:20px'></i>
                         </button>
-                        </form>
+                        <div class="share-message">
+                            Copied to clipboard
+                        </div>
+                        <input class="copy-url" type="hidden" value="{% url 'viewpost' post.pk %}" name="url">
                     </div>
                 </div>
                 <div class="likes-count">
-                    {{ post.likes.count }} likes
+                    {{ post.likes.count }} likes<br>
+                </div>
+                <div class="write-comment">
+                    <form action="{% url 'comment' post.pk %}" method="POST">
+                        {% csrf_token %}
+                        <textarea placeholder="Add a comment..." rows="1" name="comment"></textarea>
+                        <button type="submit">Post</button>
+                    </form>
                 </div>
             </div>
 

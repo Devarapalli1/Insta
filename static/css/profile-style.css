@@ -13,6 +13,10 @@ section.main .follow-info {
   font-size: large;
 }
 
+section.main .container .img form {
+  width: 100%;
+  height: 100%;
+}
 section.main .following button {
   border: 0px;
   background-color: inherit;
@@ -35,6 +39,9 @@ section.main .user-name h1 {
   font-size: 28px;
   font-weight: 300;
 }
+section.main .user-name button.delete {
+  color: black;
+}
 
 section.main .user-name .delete {
   border: 0.5px;
@@ -44,7 +51,20 @@ section.main .user-name .delete {
   padding: 0.3em 1em;
   border-radius: 10px;
 }
-
+section.main .user-name button {
+  padding: 0.3em 1em;
+  background-color: rgb(59, 127, 237);
+  border-radius: 5px;
+  border: 0px;
+  font-size: 16px;
+  cursor: pointer;
+  color: white;
+  box-sizing: border-box;
+}
+section.main .user-name form {
+  display: inline;
+  margin-left: 10px;
+}
 section.main .user-info {
   display: grid;
   grid-template-rows: auto auto auto;

@@ -1,6 +1,6 @@
 from pathlib import PosixPath
 from django.contrib import admin
-from instagramapp.models import Users, Post, Follow
+from instagramapp.models import Users, Post, Follow, Comments
 
 # Register your models here.
 class UsersAdmin(admin.ModelAdmin):
@@ -11,3 +11,4 @@ admin.site.register(Users, UsersAdmin)
 admin.site.register(Post)
 # admin.site.register(Profile)
 admin.site.register(Follow)
+admin.site.register(Comments)

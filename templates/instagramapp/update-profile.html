@@ -1,0 +1,21 @@
+{% extends "instagramapp/base.html" %}
+{% load staticfiles %}
+{% block content %}
+<section class="update-profile">
+    <div class="profile">
+        <form method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            {% if err %}
+            <p class="error"> {{err}} </p>
+            {% endif %}
+            <img src="{{ user.profile_pic.url }}"><br>
+            <label for="name">FullName</label>
+            <input type="text" id="name" name="name" placeholder="{{user.name}}">
+            <label for="email">Mail Id</label>
+            <input type="email" id="email" name="email" placeholder="{{user.email}}">
+            <input type="file" name="profile_pic">
+            <input type="submit">
+            <!-- <input type="image" name="profile_pic" src="{{ user.profile_pic.url }}"> -->
+        </form>
+    </div>
+</section> {% endblock %}

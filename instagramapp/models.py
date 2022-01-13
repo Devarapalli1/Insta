@@ -10,6 +10,9 @@ class Users(models.Model):
     user_name = models.CharField(max_length=40, unique=True, primary_key=True)
     password = models.CharField(max_length=40)
     date_created = models.DateTimeField(auto_now_add=True)
+    profile_pic = models.FileField(
+        default="profile_pics/default.jpg", upload_to="profile_pics/"
+    )
 
 
 """class Profile(models.Model):
@@ -54,3 +57,13 @@ class Follow(models.Model):
 
     def __str__(self):
         return self.user.name
+
+
+class Comments(models.Model):
+    post = models.ForeignKey(Post, on_delete=models.CASCADE)
+    user = models.ForeignKey(Users, on_delete=models.CASCADE)
+    comment = models.TextField()
+    date_created = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        ordering = ["-date_created"]

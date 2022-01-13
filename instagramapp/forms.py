@@ -39,7 +39,7 @@ class UserForm(forms.ModelForm):
 
     class Meta:
         model = Users
-        exclude = ["date_created"]
+        exclude = ["date_created", "profile_pic"]
         widgets = {
             "email": forms.EmailInput(attrs={"placeholder": "Email Address"}),
             "name": forms.TextInput(attrs={"placeholder": "Full Name"}),

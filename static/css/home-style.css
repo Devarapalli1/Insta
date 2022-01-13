@@ -184,3 +184,22 @@ section.home-post .like-comment-share .comment button {
 section.home-post .like-comment-share .share button {
   border: 0px;
 }
+
+section.home-post .share {
+  position: relative;
+}
+
+section.home-post .share .share-message {
+  position: absolute;
+  top: 0px;
+  right: -70px;
+  /* left: 20px; */
+  font-size: 10px;
+  z-index: 3;
+  background-color: #262626;
+  color: white;
+  width: max-content;
+  padding: 0.2em 0.5em;
+  border-radius: 5px;
+  display: none;
+}

@@ -4,9 +4,17 @@
 <section class="main">
     <div class="container">
         <div class="image">
+            {% if request.session.user == user_name %}
+            <a href="{% url 'update' %}">
+                <button type="submit">
+                    <img src="{{ user_obj.profile_pic.url }}">
+                </button>
+            </a>
+            {% else %}
             <button>
-                <img src="{% static 'images/profile-upload.jpg' %}">
+                <img src="{{ user_obj.profile_pic.url }}">
             </button>
+            {% endif %}
         </div>
         <div class="user-info">
             <div class="user-name">
@@ -18,6 +26,27 @@
                                 Delete Account
                             </button>
                         </a>
+                        {% else %}
+
+                        {% if user_obj in session_user_following %}
+                        <form action="{% url 'unfollow' user_name %}" method="POST">
+                            {% csrf_token %}
+                            <a>
+                                <button type="submit" name="next" value="{{request.path}}">
+                                    unfollow
+                                </button>
+                            </a>
+                        </form>
+                        {% else %}
+                        <form action="{% url 'follow' user_name %}" method="POST">
+                            {% csrf_token %}
+                            <a>
+                                <button type="submit" name="next" value="{{request.path}}">
+                                    follow
+                                </button>
+                            </a>
+                        </form>
+                        {% endif %}
                         {% endif %}
                     </span>
                 </h1>

@@ -36,6 +36,9 @@ urlpatterns = [
     path("like/<int:pk>/", views.like_post, name="like"),
     path("following/<str:user_name>/", views.view_following, name="following"),
     path("followers/<str:user_name>/", views.view_followers, name="followers"),
+    path("search/", views.search_user),
+    path("comment/<int:pk>", views.add_comment, name="comment"),
+    path("update-profile/", views.update_profile, name="update"),
 ]
 
 if settings.DEBUG:

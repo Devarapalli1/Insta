@@ -1,54 +1,7 @@
 {% extends "instagramapp/base.html" %}
 {% load staticfiles %}
 {% block content %}
-<section class="all">
-    <div class="main-container">
-        <div class="container">
 
-            {% for user in following %}
-            {% if user.following is not None %}
-            <div class="following">
-                <div class="uname">
-                    {{user.following}}
-                </div>
-                <div class="follow">
-                    <form action="{% url 'unfollow' user.following %}" method="POST">
-                        {% csrf_token %}
-                        <a>
-                            <button type="submit" name="next" value="{{request.path}}">
-                                unfollow
-                            </button>
-                        </a>
-                    </form>
-                </div>
-            </div>
-            {% endif %}
-            {% endfor %}
-
-        </div>
-        <div class="container">
-            {% if others is not None %}
-            {% for user in others %}
-            <div class="others">
-                <div class="uname">
-                    {{user.user_name}}
-                </div>
-                <div class="follow">
-                    <form action="{% url 'follow' user.user_name %}" method="POST">
-                        {% csrf_token %}
-                        <a>
-                            <button type="submit" name="next" value="{{request.path}}">
-                                follow
-                            </button>
-                        </a>
-                    </form>
-                </div>
-            </div>
-            {% endfor %}
-            {% endif %}
-        </div>
-    </div>
-</section>
 
 <!-- 
 <section class="home-post">
@@ -141,6 +94,54 @@
             </a>
         </div>
         {% endfor %}
+    </div>
+</section>
+<section class="all">
+    <div class="main-container">
+        <div class="container">
+
+            {% for user in following %}
+            {% if user.following is not None %}
+            <div class="following">
+                <div class="uname">
+                    {{user.following}}
+                </div>
+                <div class="follow">
+                    <form action="{% url 'unfollow' user.following %}" method="POST">
+                        {% csrf_token %}
+                        <a>
+                            <button type="submit" name="next" value="{{request.path}}">
+                                unfollow
+                            </button>
+                        </a>
+                    </form>
+                </div>
+            </div>
+            {% endif %}
+            {% endfor %}
+
+        </div>
+        <div class="container">
+            {% if others is not None %}
+            {% for user in others %}
+            <div class="others">
+                <div class="uname">
+                    {{user.user_name}}
+                </div>
+                <div class="follow">
+                    <form action="{% url 'follow' user.user_name %}" method="POST">
+                        {% csrf_token %}
+                        <a>
+                            <button type="submit" name="next" value="{{request.path}}">
+                                follow
+                            </button>
+                        </a>
+                    </form>
+                </div>
+            </div>
+            {% endfor %}
+            {% endif %}
+        </div>
     </div>
 </section>
 {% endblock %}

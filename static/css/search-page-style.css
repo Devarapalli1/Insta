@@ -1,0 +1,67 @@
+section.search .uinfo {
+  display: grid;
+  grid-template-columns: auto 2fr auto;
+  width: 500px;
+  margin: auto;
+  background-color: white;
+  padding: 1em 1em;
+  border-radius: 1em;
+}
+
+section.search .container {
+  display: grid;
+  row-gap: 2rem;
+}
+
+section.search .container .uinfo .follow button {
+  padding: 0.3em 1em;
+  background-color: rgb(59, 127, 237);
+  border-radius: 0.7em;
+  border: 0px;
+  font-size: 16px;
+  cursor: pointer;
+  color: white;
+  box-sizing: border-box;
+}
+
+section.search .container .user .follow {
+  text-align: right;
+  margin: auto 0px;
+}
+
+section.search .container .user-name {
+  font-size: medium;
+  display: unset;
+  margin: auto 0px;
+  overflow: hidden;
+  font-weight: 600;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+}
+
+section.search .container .uinfo .profile-pic button {
+  border: 0px;
+  background-color: inherit;
+  height: 100%;
+  width: 100%;
+}
+
+section.search i.fa.fa-user-circle {
+  font-size: 30px;
+}
+
+section.search a {
+  color: black;
+}
+
+section.search .container .user-name-info {
+  display: grid;
+  grid-template-rows: 1fr 1fr;
+  font-size: small;
+}
+
+@media screen and (max-width: 600px) {
+  section.search .uinfo {
+    width: 300px;
+  }
+}
