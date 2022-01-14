@@ -1,5 +1,6 @@
 {% extends "instagramapp/base.html" %}
 {% load staticfiles %}
+{% load humanize %}
 {% block content %}
 <section class="view-post">
     <div class="container">
@@ -71,7 +72,9 @@
                         {{ comment.user.user_name }}
                     </div>
                     <div class="comment-description">
-                        {{ comment.comment }}
+                        {{ comment.comment }}<br>
+                        <br>
+                        Commented {{comment.date_created|naturaltime|capfirst}}
                     </div>
                     <div class="sub-comments">
                         <button class="view-reply" onclick="displayComments(event,this)">
@@ -147,6 +150,7 @@
                 </div>
                 <div class="likes-count">
                     {{ post.likes.count }} likes<br>
+                    Posted {{post.created|naturaltime|capfirst}}
                 </div>
                 <div class="write-comment">
                     <form action="{% url 'comment' post.pk %}" method="POST">

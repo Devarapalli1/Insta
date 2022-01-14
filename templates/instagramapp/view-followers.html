@@ -20,7 +20,8 @@
                 </button>
             </div>
             <div class="uname">
-                {{ follower.user.user_name }}
+                {{ follower.user.user_name }}<br>
+                <span class="name">{{ follower.user.name }}</span>
             </div>
             <div class="follow">
                 {% if follower.user.user_name == request.session.user %}

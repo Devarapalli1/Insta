@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 {% extends "instagramapp/base.html" %}
 {% load staticfiles %}
-
+{% load humanize %}
 {% block content %}
 
 <section class="home-post">
@@ -74,7 +74,8 @@
 
                 </div>
                 <div class="likes-count">
-                    {{ post.likes.count }} likes
+                    {{ post.likes.count }} likes<br>
+                    Posted {{post.created|naturaltime|capfirst}}
                 </div>
                 {% if post.location  %}
                 <div class=" location">

@@ -1,7 +1,7 @@
 section.search .uinfo {
   display: grid;
   grid-template-columns: auto 2fr auto;
-  width: 500px;
+  width: 300px;
   margin: auto;
   background-color: white;
   padding: 1em 1em;

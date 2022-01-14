@@ -13,7 +13,7 @@ section.view-following .main-container .view-container {
   grid-template-columns: auto 2fr auto;
   width: 300px;
   margin: auto;
-  column-gap: 30px;
+  /* column-gap: 30px; */
   font-size: larger;
   text-align: center;
   background-color: white;
@@ -38,8 +38,16 @@ section.view-following .view-container .uname {
   align-content: center;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
     Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
-  font-size: 18px;
-  margin: auto;
+  font-size: 14px;
+  /* margin-top: auto; */
+  margin-left: 5px;
+  /* text-align: left; */
+  font-weight: 600;
+  text-align: left;
+}
+section.view-following .view-container .uname .name {
+  font-size: 13px;
+  font-weight: 400;
 }
 
 section.view-following .main-container .view-container .profile-pic img {
@@ -59,6 +67,7 @@ section.view-following .main-container .view-container .profile-pic button {
 #restrict {
   background-color: grey;
   color: black;
+  font-size: small;
 }
 
 section.view-following .main-container a {

@@ -73,7 +73,9 @@ section.view-post .comments .uinfo {
   border-bottom: 2px solid rgb(220, 220, 220);
   box-sizing: border-box;
 }
-
+section.view-post .comments .uinfo .user-name-info .user-name {
+  font-weight: 600;
+}
 /* section.view-post .comments .profile-pic .fa {
   font-size: 26px;
 } */
