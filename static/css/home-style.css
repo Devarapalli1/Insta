@@ -88,14 +88,15 @@ section.home-post .likes-count {
 /* Suggestions Container */
 section.home-post .suggestions-container {
   background-color: white;
-  width: 700px;
+  width: 400px;
   margin: 0px auto;
+  border-radius: 40px;
 }
 section.home-post .suggestions {
   display: grid;
   row-gap: 40px;
   padding: 50px 30px;
-  margin: 40px auto;
+  margin: 25px auto;
 }
 
 section.home-post .suggestions .user {
@@ -161,7 +162,7 @@ section.home-post .suggestions .user-name-info {
   grid-template-rows: 1fr 1fr;
 }
 section.home-post .suggestions-head {
-  width: 700px;
+  width: 400px;
   margin: auto;
   font: inherit;
   font-size: larger;
@@ -170,6 +171,8 @@ section.home-post .suggestions-head {
 }
 h4 {
   font-weight: 500;
+  margin-left: 30px;
+  margin-bottom: 15px;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
     Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
 }

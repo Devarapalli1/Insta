@@ -73,9 +73,14 @@ class PostForm(forms.ModelForm):
     class Meta:
         model = Post
         fields = ["description", "location", "post"]
-        widgets = {"description": forms.Textarea(attrs={"cols": 50})}
+        widgets = {
+            "description": forms.Textarea(
+                attrs={"cols": 30, "placeholder": "Write a Caption..."}
+            ),
+            "location": forms.TextInput(attrs={"placeholder": "Enter Location"}),
+        }
         labels = {
             "description": "Description",
             "location": "Location",
-            "post": "",
+            "post": "Upload",
         }
