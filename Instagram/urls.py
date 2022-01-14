@@ -39,6 +39,7 @@ urlpatterns = [
     path("search/", views.search_user),
     path("comment/<int:pk>", views.add_comment, name="comment"),
     path("update-profile/", views.update_profile, name="update"),
+    path("subcomments/<int:pk>", views.add_sub_comments, name="subcomments"),
 ]
 
 if settings.DEBUG:

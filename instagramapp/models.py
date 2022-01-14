@@ -1,3 +1,4 @@
+from pyexpat import model
 from django.db import models
 from django.db.models.base import Model
 from django.forms import widgets
@@ -61,6 +62,18 @@ class Follow(models.Model):
 
 class Comments(models.Model):
     post = models.ForeignKey(Post, on_delete=models.CASCADE)
+    user = models.ForeignKey(Users, on_delete=models.CASCADE)
+    comment = models.TextField()
+    date_created = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        ordering = ["-date_created"]
+
+
+class SubComments(models.Model):
+    comment_id = models.ForeignKey(
+        Comments, on_delete=models.CASCADE, related_name="cid"
+    )
     user = models.ForeignKey(Users, on_delete=models.CASCADE)
     comment = models.TextField()
     date_created = models.DateTimeField(auto_now_add=True)

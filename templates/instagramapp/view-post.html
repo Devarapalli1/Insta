@@ -73,6 +73,45 @@
                     <div class="comment-description">
                         {{ comment.comment }}
                     </div>
+                    <div class="sub-comments">
+                        <button class="view-reply" onclick="displayComments(event,this)">
+                            {% if comment.cid.count == 0 %}
+                            ---- reply
+                            {% else %}
+                            {{comment.cid.count }} reply
+                            {% endif %}
+                        </button>
+                        <div class="sub-comments-section" style="display: none;">
+                            {% for sub_comment in comment.cid.all %}
+                            <div class="sub-comments uinfo">
+                                <div class="profile-pic">
+                                    <button>
+                                        <a href="{% url 'profile' sub_comment.user.user_name %}">
+                                            <img src="{{ sub_comment.user.profile_pic.url }}">
+                                            <!-- <i class="fa fa-user-circle"></i> -->
+                                        </a>
+                                    </button>
+                                </div>
+                                <div class="user-name">
+                                    {{ sub_comment.user.user_name }}
+                                </div>
+                                <div class="comment-description">
+                                    {{ sub_comment.comment }}
+                                </div>
+                            </div>
+                            {% endfor %}
+                            <div class="write-sub-comment">
+                                <form action="{% url 'subcomments' post.pk %}" method="POST">
+                                    {% csrf_token %}
+                                    <input type="hidden" name="comment-pk" value="{{comment.pk}}">
+                                    <textarea placeholder="Add a comment..." rows="1" name="comment"></textarea>
+                                    <div>
+                                        <button type="submit">Post</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
                 </div>
                 {% endfor %}
             </div>

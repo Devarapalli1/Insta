@@ -149,7 +149,7 @@ section.view-post .comments-section {
 section.view-post .comments-section .uinfo {
   display: grid;
   grid-template-columns: 30px auto;
-  grid-template-rows: auto auto;
+  grid-template-rows: auto auto auto;
   font-size: 11px;
   border: 0px;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
@@ -286,4 +286,80 @@ section.related-posts .content {
 
 * {
   scrollbar-width: 2px;
+}
+
+/*  Sub-Comments Styling */
+section.view-post .comments-section .sub-comments .uinfo {
+  display: grid;
+  grid-template-columns: 30px auto;
+  /* text-align: center; */
+}
+
+section.view-post .comments-section .sub-comments .profile-pic {
+  grid-row: 1 / span 2;
+  margin: unset;
+}
+
+/* section.view-post .comments-section .sub-comments .uinfo {
+  m
+} */
+
+section.view-post .sub-comments {
+  grid-column: 2 / span 1;
+  grid-row: 3 / span 1;
+  /* text-align: center; */
+}
+
+section.view-post .comments-section .sub-comments button {
+  border: 0px;
+  padding: 0px;
+  background-color: inherit;
+  color: rgb(100, 100, 100);
+  font-size: 13px;
+  margin-left: 30%;
+  margin-top: 5px;
+}
+
+/* section.view-post .comments-section .sub-comments .sub-comments-section {
+  display: block;
+} */
+
+section.view-post
+  .comments-section
+  .sub-comments
+  .write-sub-comment
+  form
+  textarea {
+  width: 50%;
+  text-align: center;
+  border: 0px;
+  background-color: rgb(230, 230, 230);
+  border-radius: 15px;
+}
+
+section.view-post .comments-section .sub-comments .write-sub-comment form {
+  text-align: left;
+  margin-left: 10px;
+  display: flex;
+  column-gap: 10px;
+  /* background-color: rgb(240, 240, 240); */
+  border-radius: 10px;
+  margin-top: 5px;
+}
+
+section.view-post
+  .comments-section
+  .sub-comments
+  .write-sub-comment
+  form
+  button {
+  color: rgb(0, 149, 236);
+  margin-top: 0px;
+  margin-left: 15px;
+  font-size: 14px;
+  background-color: inherit;
+}
+
+section.view-post .comments-section .sub-comments .write-sub-comment form div {
+  display: inline;
 }

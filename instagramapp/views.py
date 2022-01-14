@@ -2,7 +2,7 @@ from django.shortcuts import redirect, render
 from django.http import HttpResponse
 from . import forms
 from .forms import LoginForm, PostForm
-from instagramapp.models import Comments, Users, Post, Follow, Comments
+from instagramapp.models import Comments, SubComments, Users, Post, Follow, Comments
 from django.core.files.storage import FileSystemStorage
 from django.http import HttpResponseRedirect
 from datetime import datetime
@@ -394,3 +394,20 @@ def update_profile(request):
         "instagramapp/update-profile.html",
         {"user": session_user_obj, "err": err},
     )
+
+
+def add_sub_comments(request, pk):
+    session_user = request.session["user"]
+    session_user_obj = Users.objects.get(user_name=session_user)
+    # post = Post.objects.get(pk=pk)
+    if request.method == "POST":
+        comment_id = request.POST.get("comment-pk")
+        comment = request.POST.get("comment")
+        comment_obj = Comments.objects.get(pk=comment_id)
+        SubComments.objects.create(
+            comment_id=comment_obj, comment=comment, user=session_user_obj
+        )
+        # Comments.objects.create(post=post, user=session_user_obj, comment=comment)
+        return redirect("/viewpost/" + str(pk))
+
+    return redirect("/viewpost/" + str(pk))
