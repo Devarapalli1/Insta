@@ -139,6 +139,8 @@ def post(request):
                 )
                 obj.save()
             return redirect("/profile/" + user_name)
+            # else:
+            #     return render(request, "instagramapp/post-form.html")
         else:
             form = forms.PostForm()
         return render(request, "instagramapp/post-form.html", {"form": form})
@@ -316,8 +318,8 @@ def search_user(request):
         search_for_user = search_for_user.strip()
         if search_for_user != "":
             search_results = Users.objects.filter(
-                Q(user_name__contains=search_for_user)
-                | Q(name__contains=search_for_user)
+                Q(user_name__icontains=search_for_user)
+                | Q(name__icontains=search_for_user)
             ).exclude(user_name=session_user)
             session_user_following = Follow.objects.get(
                 user__user_name=session_user

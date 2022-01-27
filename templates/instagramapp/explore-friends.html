@@ -1,5 +1,6 @@
 {% extends "instagramapp/base.html" %}
 {% load staticfiles %}
+{% load remainder %}
 {% block content %}
 
 
@@ -83,10 +84,12 @@
     </div>
 </section> -->
 
+
 <section class="test">
     <div class="main-container">
         {% for post in posts %}
         <div class="item">
+            <!-- {{ forloop.counter|remainder:9}} -->
             <a href="{% url 'viewpost' post.pk %}">
                 <button>
                     <img src="{{ post.post.url }}" alt="img">
@@ -144,4 +147,91 @@
         </div>
     </div>
 </section>
+<!-- <section class="test1">
+    <div class="main-container">
+        {% for post in posts %}
+        {% if forloop.counter|remainder:9 == 1 %}
+        <div class="item item1">
+            <a href="{% url 'viewpost' post.pk %}">
+                <button>
+                    <img src="{{ post.post.url }}" alt="img">
+                </button>
+            </a>
+        </div>
+        {%endif %}
+        {% if forloop.counter|remainder:9 == 2 %}
+        <div class="item item2">
+            <a href="{% url 'viewpost' post.pk %}">
+                <button>
+                    <img src="{{ post.post.url }}" alt="img">
+                </button>
+            </a>
+        </div>
+        {%endif %}
+        {% if forloop.counter|remainder:9 == 3 %}
+        <div class="item item3">
+            <a href="{% url 'viewpost' post.pk %}">
+                <button>
+                    <img src="{{ post.post.url }}" alt="img">
+                </button>
+            </a>
+        </div>
+        {%endif %}
+        {% if forloop.counter|remainder:9 == 4 %}
+        <div class="item item4">
+            <a href="{% url 'viewpost' post.pk %}">
+                <button>
+                    <img src="{{ post.post.url }}" alt="img">
+                </button>
+            </a>
+        </div>
+        {% endif %}
+        {% if forloop.counter|remainder:9 == 5 %}
+        <div class="item item5">
+            <a href="{% url 'viewpost' post.pk %}">
+                <button>
+                    <img src="{{ post.post.url }}" alt="img">
+                </button>
+            </a>
+        </div>
+        {% endif %}
+        {% if forloop.counter|remainder:9 == 6 %}
+        <div class="item item6">
+            <a href="{% url 'viewpost' post.pk %}">
+                <button>
+                    <img src="{{ post.post.url }}" alt="img">
+                </button>
+            </a>
+        </div>
+        {% endif %}
+        {% if forloop.counter|remainder:9 == 7 %}
+        <div class="item item7">
+            <a href="{% url 'viewpost' post.pk %}">
+                <button>
+                    <img src="{{ post.post.url }}" alt="img">
+                </button>
+            </a>
+        </div>
+        {% endif %}
+        {% if forloop.counter|remainder:9 == 8 %}
+        <div class="item item8">
+            <a href="{% url 'viewpost' post.pk %}">
+                <button>
+                    <img src="{{ post.post.url }}" alt="img">
+                </button>
+            </a>
+        </div>
+        {% endif %}
+        {% if forloop.counter|remainder:9 == 0 %}
+        <div class="item item9">
+            <a href="{% url 'viewpost' post.pk %}">
+                <button>
+                    <img src="{{ post.post.url }}" alt="img">
+                </button>
+            </a>
+        </div>
+        {% endif %}
+        {% endfor %}
+    </div>
+</section> -->
 {% endblock %}

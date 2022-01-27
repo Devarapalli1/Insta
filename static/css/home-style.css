@@ -51,6 +51,7 @@ section.home-post .user-name a {
 }
 section.home-post .user-name .profile-pic button {
   border: 0px;
+  background-color: inherit;
 }
 
 section.home-post .user-name .unfollow {
@@ -75,6 +76,7 @@ section.home-post .img button {
 }
 section.home-post button[name="post_pk"] {
   border: 0px;
+  background-color: inherit;
 }
 
 section.home-post .likes-count {
@@ -192,10 +194,12 @@ section.home-post .like-comment-share {
 
 section.home-post .like-comment-share .comment button {
   border: 0px;
+  background-color: inherit;
 }
 
 section.home-post .like-comment-share .share button {
   border: 0px;
+  background-color: inherit;
 }
 
 section.home-post .share {

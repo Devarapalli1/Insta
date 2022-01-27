@@ -75,7 +75,7 @@
                 </div>
                 <div class="likes-count">
                     {{ post.likes.count }} likes<br>
-                    Posted {{post.created|naturaltime|capfirst}}
+                    Posted {{ post.created|naturaltime|capfirst }}
                 </div>
                 {% if post.location  %}
                 <div class=" location">

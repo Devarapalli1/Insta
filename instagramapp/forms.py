@@ -4,6 +4,7 @@ from django.forms import fields
 from instagramapp.models import Post, Users
 from django.core.exceptions import ValidationError
 from django.core import validators
+import os
 
 
 def UniqueUser(value):
@@ -19,6 +20,13 @@ def UniqueEmail(value):
 def does_not_exist(value):
     if not Users.objects.filter(user_name__iexact=value).exists():
         raise ValidationError("User Doesnot exist please Sign-Up")
+
+
+def image_file_support(value):
+    # post_extension = os.path.splitext(value.name)[1]
+    extensions = [".jpg", ".jpeg", ".png"]
+    if value.split(".")[-1].lower() not in extensions:
+        raise ValidationError("File does not support")
 
 
 class UserForm(forms.ModelForm):
@@ -78,6 +86,7 @@ class PostForm(forms.ModelForm):
                 attrs={"cols": 30, "placeholder": "Write a Caption..."}
             ),
             "location": forms.TextInput(attrs={"placeholder": "Enter Location"}),
+            # "post": forms.FileInput(validators=[image_file_support]),
         }
         labels = {
             "description": "Description",
